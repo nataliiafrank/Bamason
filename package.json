@@ -1,0 +1,24 @@
+{
+  "name": "bamason",
+  "version": "1.0.0",
+  "description": "Amazon-like storefront with MySQL",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nataliiafrank/Bamason.git"
+  },
+  "author": "Nataliia Frank",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nataliiafrank/Bamason/issues"
+  },
+  "homepage": "https://github.com/nataliiafrank/Bamason#readme",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "inquirer": "^6.0.0",
+    "mysql": "^2.15.0"
+  }
+}
