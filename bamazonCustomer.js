@@ -36,7 +36,7 @@ var makeOrder = function () {
             item_id: answer.id
         }, function (err, res) {
             if (err) throw err;
-           
+
             if (answer.count > res[0].stock_quantity) {
                 console.log('You are trying to order more items than is available in stock');
                 listProducts();
@@ -45,20 +45,21 @@ var makeOrder = function () {
             }
         });
     });
-};
+}
 
 
 var listProducts = function () {
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
-        console.log('-- Items avalable in the store --\n');
+        console.log('\n-- ITEMS AVALIBLE IN THE STORE --\n');
         console.log('ID' + ' | ' + ' ITEM ' + ' | ' + 'CATEGORY' + ' | ' + ' PRICE ' + ' | ' + 'QUONTITY');
         for (i = 0; i < res.length; i++) {
-            console.log(res[i].item_id + ' | ' + res[i].product_name +  ' | ' + res[i].department_name + ' | ' + '$' + res[i].price + ' | ' + res[i].stock_quantity);
+            console.log(res[i].item_id + ' | ' + res[i].product_name + ' | ' + res[i].department_name + ' | ' + '$' + res[i].price + ' | ' + res[i].stock_quantity);
         }
+        console.log('\n');
         makeOrder();
     });
-};
+}
 
 
 var processOrder = function (id, count, stock_quantity) {
@@ -73,8 +74,24 @@ var processOrder = function (id, count, stock_quantity) {
         }, function (err, res) {
             console.log("You successfully made an order!");
             console.log("Your total cost is $" + res[0].price * count);
+            nextOrder();
         });
         
     });
-    
-};
+}
+
+
+var nextOrder = function() {
+    inquirer.prompt([{
+        name: 'next',
+        type: 'confirm',
+        message: 'Do you want to make another order?'
+    }]).then(function (answer) {
+        if (answer.next == true) {
+            listProducts();
+        } else {
+            console.log('Thank you for shopping with us, see you next time!!!');
+            process.exit(0);
+        }
+    });
+}
